@@ -1,9 +1,9 @@
-## Aggregator
+# Aggregator
 
-# cd ./reatime/
-# cargo run 
+## cd ./reatime/
+## cargo run 
 
-## Client
+# Client
 
-# cd ./client/
-# cargo run
+## cd ./client/
+## cargo run
