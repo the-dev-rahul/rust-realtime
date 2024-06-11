@@ -1,8 +1,12 @@
-Aggregator
-cd ./reatime/
-cargo run 
+##Aggregator
+'''
+#cd ./reatime/
+#cargo run 
+'''
 
 
-Client
-cd ./client/
-cargo run 
+##Client
+'''
+#cd ./client/
+#cargo run 
+'''
