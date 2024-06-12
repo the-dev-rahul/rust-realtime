@@ -2,7 +2,7 @@ use std::str::FromStr;
 use authentication::Authentication;
 use tokio_tungstenite::accept_async;
 
-use tokio::net::TcpListener;
+use tokio::net::{TcpListener, TcpStream};
 use futures_util::StreamExt;
 use std::sync::Mutex;
 use std::sync::Arc;
@@ -26,15 +26,15 @@ async fn main() {
 
     while let Ok((stream, _)) = listener.accept().await {
         let  auth_clone =  Arc::clone(&auth); 
-        let  aggrt: Arc<Mutex<aggregator::Aggregator>> =  Arc::clone(&aggrt); 
-        tokio::spawn(  handle_connection(stream, auth_clone, aggrt));
+        let  aggrt_clone: Arc<Mutex<aggregator::Aggregator>> =  Arc::clone(&aggrt); 
+        tokio::spawn(  handle_connection(stream, auth_clone, aggrt_clone));
     }
 }
 
 
-async fn handle_connection(stream: tokio::net::TcpStream, auth: Arc<Mutex<Authentication>>, aggrt : Arc<Mutex<aggregator::Aggregator>>) {
+async fn handle_connection(stream: TcpStream, auth: Arc<Mutex<Authentication>>, aggrt : Arc<Mutex<aggregator::Aggregator>>) {
 
-    async fn connect(stream: tokio::net::TcpStream, auth: Arc<Mutex<Authentication>>, aggrt : Arc<Mutex<aggregator::Aggregator>>) -> Result<(), Box<dyn std::error::Error>>  {
+    async fn connect(stream: TcpStream, auth: Arc<Mutex<Authentication>>, aggrt : Arc<Mutex<aggregator::Aggregator>>) -> Result<(), Box<dyn std::error::Error>>  {
 
         let ws_stream = accept_async(stream)
             .await?;
