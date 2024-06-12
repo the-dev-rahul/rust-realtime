@@ -22,4 +22,8 @@ impl Authentication{
             self.keys.remove(pos);
         }
     }
+
+    pub fn is_empty(&mut self) -> bool {
+        self.keys.len() == 0
+    }
 }

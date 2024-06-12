@@ -66,7 +66,7 @@ async fn handle_connection(stream: TcpStream, auth: Arc<Mutex<Authentication>>, 
                     ()},
                 serializers::Status::Close =>{
                         auth.remove(&websocket_message.key);
-                        if auth.keys.len() == 0{
+                        if auth.is_empty(){
                             aggrt.calculate_average();
                         }
                         return Ok(());
